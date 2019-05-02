@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Relay Sync</string>
+    <string name="min_fault_current">Min fault current</string>
+    <string name="max_fault_current">Max fault current</string>
+    <string name="shift_relay_up">Shift relay up</string>
+    <string name="shift_down_relay">Shift down relay</string>
+    <string name="max_load_current">Max load current</string>
+    <string name="calculate">Calculate</string>
+    <string name="tap_button_to_add_a_relay">Tap + button to add a relay…</string>
+    <string name="empty_list">empty list</string>
+</resources>
