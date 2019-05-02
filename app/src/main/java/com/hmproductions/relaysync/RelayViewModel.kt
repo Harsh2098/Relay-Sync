@@ -29,6 +29,6 @@ class RelayViewModel : ViewModel() {
         relaysList[position + 1] = tempRelay
 
         relaysList[position].position = position + 1
-        relaysList[position - 1].position = position + 2
+        relaysList[position + 1].position = position + 2
     }
 }

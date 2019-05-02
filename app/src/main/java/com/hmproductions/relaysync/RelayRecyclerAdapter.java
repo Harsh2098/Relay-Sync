@@ -1,6 +1,8 @@
 package com.hmproductions.relaysync;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +17,7 @@ import java.util.List;
 
 class RelayRecyclerAdapter extends RecyclerView.Adapter<RelayRecyclerAdapter.RelayViewHolder> {
 
-    private List<Relay> relayList, relayCache;
+    private List<Relay> relayList;
     private Context context;
     private RelayClickListener listener;
 
@@ -29,8 +31,6 @@ class RelayRecyclerAdapter extends RecyclerView.Adapter<RelayRecyclerAdapter.Rel
         this.relayList = relayList;
         this.context = context;
         this.listener = listener;
-
-        relayCache = new ArrayList<>();
     }
 
     @NonNull
@@ -59,9 +59,6 @@ class RelayRecyclerAdapter extends RecyclerView.Adapter<RelayRecyclerAdapter.Rel
             holder.minFaultCurrentEditText.setText(String.valueOf(currentRelay.getMinFaultCurrent()));
         else
             holder.minFaultCurrentEditText.setText("");
-
-        relayCache.add(new Relay(position + 1, getFormattedInteger(holder.maxLoadCurrentEdiText.getText().toString()),
-                getFormattedInteger(holder.minFaultCurrentEditText.getText().toString()), getFormattedInteger(holder.maxFaultCurrentEditText.getText().toString())));
     }
 
     @Override
@@ -81,9 +78,8 @@ class RelayRecyclerAdapter extends RecyclerView.Adapter<RelayRecyclerAdapter.Rel
     }
 
     public List<Relay> getUpdatedList() {
-        relayCache.clear();
-        notifyDataSetChanged();
-        return relayCache;
+        if (relayList == null) return new ArrayList<>();
+        return relayList;
     }
 
     private int getFormattedInteger(String s) {
@@ -108,6 +104,57 @@ class RelayRecyclerAdapter extends RecyclerView.Adapter<RelayRecyclerAdapter.Rel
             maxLoadCurrentEdiText = itemView.findViewById(R.id.maxLoadCurrentEditText);
             upButton = itemView.findViewById(R.id.upButton);
             downButton = itemView.findViewById(R.id.downButton);
+
+            maxLoadCurrentEdiText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    relayList.get(getAdapterPosition()).setLoadCurrent(getFormattedInteger(s.toString()));
+                }
+            });
+
+            minFaultCurrentEditText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    relayList.get(getAdapterPosition()).setMinFaultCurrent(getFormattedInteger(s.toString()));
+                }
+            });
+
+            maxFaultCurrentEditText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    relayList.get(getAdapterPosition()).setMaxFaultCurrent(getFormattedInteger(s.toString()));
+                }
+            });
 
             upButton.setOnClickListener(v -> listener.onUpButtonClick(getAdapterPosition()));
             downButton.setOnClickListener(v -> listener.onDownButtonClick(getAdapterPosition()));

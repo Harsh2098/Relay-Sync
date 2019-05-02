@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity(), RelayRecyclerAdapter.RelayClickListene
     private fun setupFab() {
         addFab.setOnClickListener {
             if (model.size == 0) emptyListLayout.visibility = View.GONE
+            model.relaysList = relayAdapter?.updatedList as MutableList<Relay>
             model.insertRelay()
             relayAdapter?.insertAtLast(model.relaysList)
         }
