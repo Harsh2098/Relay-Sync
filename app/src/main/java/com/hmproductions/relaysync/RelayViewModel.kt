@@ -5,10 +5,9 @@ import androidx.lifecycle.ViewModel
 class RelayViewModel : ViewModel() {
 
     var relaysList = mutableListOf<Relay>()
-    var size = 0
 
     fun insertRelay() {
-        relaysList.add(Relay(++size, -1, -1, -1))
+        relaysList.add(Relay(relaysList.size + 1, -1, -1, -1))
     }
 
     fun moveUp(position: Int): Boolean {
@@ -18,9 +17,13 @@ class RelayViewModel : ViewModel() {
     }
 
     fun moveDown(position: Int): Boolean {
-        if (position >= size - 1) return false
+        if (position >= relaysList.size - 1) return false
         swapPositions(position)
         return true
+    }
+
+    fun deleteRelay(position: Int) {
+        relaysList.removeAt(position)
     }
 
     private fun swapPositions(position: Int) {

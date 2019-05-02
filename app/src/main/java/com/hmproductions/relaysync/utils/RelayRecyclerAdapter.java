@@ -1,4 +1,4 @@
-package com.hmproductions.relaysync;
+package com.hmproductions.relaysync.utils;
 
 import android.content.Context;
 import android.text.Editable;
@@ -10,18 +10,21 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+import com.hmproductions.relaysync.R;
+import com.hmproductions.relaysync.Relay;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class RelayRecyclerAdapter extends RecyclerView.Adapter<RelayRecyclerAdapter.RelayViewHolder> {
+public class RelayRecyclerAdapter extends RecyclerView.Adapter<RelayRecyclerAdapter.RelayViewHolder> {
 
     private List<Relay> relayList;
     private Context context;
     private RelayClickListener listener;
 
-    interface RelayClickListener {
+    public interface RelayClickListener {
         void onUpButtonClick(int position);
 
         void onDownButtonClick(int position);
@@ -77,6 +80,11 @@ class RelayRecyclerAdapter extends RecyclerView.Adapter<RelayRecyclerAdapter.Rel
         notifyItemInserted(newList.size() - 1);
     }
 
+    public void deleteRelay(List<Relay> newList, int position) {
+        relayList = newList;
+        notifyItemRemoved(position);
+    }
+
     public List<Relay> getUpdatedList() {
         if (relayList == null) return new ArrayList<>();
         return relayList;
@@ -94,6 +102,7 @@ class RelayRecyclerAdapter extends RecyclerView.Adapter<RelayRecyclerAdapter.Rel
         private TextView positionTextView;
         private EditText maxFaultCurrentEditText, minFaultCurrentEditText, maxLoadCurrentEdiText;
         private ImageButton upButton, downButton;
+        ConstraintLayout viewForeground;
 
         RelayViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -104,6 +113,7 @@ class RelayRecyclerAdapter extends RecyclerView.Adapter<RelayRecyclerAdapter.Rel
             maxLoadCurrentEdiText = itemView.findViewById(R.id.maxLoadCurrentEditText);
             upButton = itemView.findViewById(R.id.upButton);
             downButton = itemView.findViewById(R.id.downButton);
+            viewForeground = itemView.findViewById(R.id.view_foreground);
 
             maxLoadCurrentEdiText.addTextChangedListener(new TextWatcher() {
                 @Override
