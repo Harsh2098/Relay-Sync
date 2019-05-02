@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.hmproductions.relaysync.R;
-import com.hmproductions.relaysync.Relay;
+import com.hmproductions.relaysync.data.Relay;
 
 import java.util.ArrayList;
 import java.util.List;

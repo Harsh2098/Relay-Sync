@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.hmproductions.relaysync.data.Relay
+import com.hmproductions.relaysync.data.RelayViewModel
 import com.hmproductions.relaysync.utils.RelayItemTouchHelper
 import com.hmproductions.relaysync.utils.RelayRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -65,7 +67,7 @@ class MainActivity : AppCompatActivity(), RelayRecyclerAdapter.RelayClickListene
         if (moved) relayAdapter?.itemsChanged(model.relaysList, position, 2)
     }
 
-    override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int, position: Int) {
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int, position: Int) {
         model.deleteRelay(position)
         if (model.relaysList.size == 0) emptyListLayout.visibility = View.VISIBLE
         relayAdapter?.deleteRelay(model.relaysList, position)

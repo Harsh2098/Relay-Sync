@@ -1,4 +1,4 @@
-package com.hmproductions.relaysync
+package com.hmproductions.relaysync.data
 
 import androidx.lifecycle.ViewModel
 
