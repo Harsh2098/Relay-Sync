@@ -1,4 +1,4 @@
-package com.hmproductions.relaysync.utils;
+package com.hmproductions.relaysync.adapter;
 
 import android.content.Context;
 import android.text.Editable;
@@ -18,7 +18,7 @@ import com.hmproductions.relaysync.data.Bus;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RelayRecyclerAdapter extends RecyclerView.Adapter<RelayRecyclerAdapter.RelayViewHolder> {
+public class BusRecyclerAdapter extends RecyclerView.Adapter<BusRecyclerAdapter.BusViewHolder> {
 
     private List<Bus> busList;
     private Context context;
@@ -30,7 +30,7 @@ public class RelayRecyclerAdapter extends RecyclerView.Adapter<RelayRecyclerAdap
         void onDownButtonClick(int position);
     }
 
-    public RelayRecyclerAdapter(List<Bus> busList, Context context, RelayClickListener listener) {
+    public BusRecyclerAdapter(List<Bus> busList, Context context, RelayClickListener listener) {
         this.busList = busList;
         this.context = context;
         this.listener = listener;
@@ -38,12 +38,12 @@ public class RelayRecyclerAdapter extends RecyclerView.Adapter<RelayRecyclerAdap
 
     @NonNull
     @Override
-    public RelayViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new RelayViewHolder(LayoutInflater.from(context).inflate(R.layout.relay_list_item, parent, false));
+    public BusViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new BusViewHolder(LayoutInflater.from(context).inflate(R.layout.bus_list_item, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RelayViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BusViewHolder holder, int position) {
         Bus currentBus = busList.get(position);
 
         holder.positionTextView.setText(String.valueOf(currentBus.getPosition()));
@@ -97,14 +97,14 @@ public class RelayRecyclerAdapter extends RecyclerView.Adapter<RelayRecyclerAdap
             return Integer.parseInt(s);
     }
 
-    class RelayViewHolder extends RecyclerView.ViewHolder {
+    public class BusViewHolder extends RecyclerView.ViewHolder {
 
         private TextView positionTextView;
         private EditText maxFaultCurrentEditText, minFaultCurrentEditText, maxLoadCurrentEdiText;
         private ImageButton upButton, downButton;
-        ConstraintLayout viewForeground;
+        public ConstraintLayout viewForeground;
 
-        RelayViewHolder(@NonNull View itemView) {
+        BusViewHolder(@NonNull View itemView) {
             super(itemView);
 
             positionTextView = itemView.findViewById(R.id.positionTextView);

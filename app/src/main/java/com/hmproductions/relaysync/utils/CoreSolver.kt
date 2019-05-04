@@ -3,7 +3,12 @@ package com.hmproductions.relaysync.utils
 import com.hmproductions.relaysync.data.Bus
 import com.hmproductions.relaysync.data.Relay
 
-fun computeRelayParameters(buses: List<Bus>, alpha: Double = 0.14, beta: Double = 0.02, circuitBreakerTime: Double = 0.5): List<Relay> {
+fun computeRelayParameters(
+    buses: List<Bus>,
+    alpha: Double = 0.14,
+    beta: Double = 0.02,
+    circuitBreakerTime: Double = 0.5
+): List<Relay> {
     val relays = mutableListOf<Relay>()
     val globalMaxFaultCurrent = buses[buses.size - 2].maxFaultCurrent.toDouble()
     relays.add(Relay(0.1))
@@ -24,7 +29,8 @@ fun computeRelayParameters(buses: List<Bus>, alpha: Double = 0.14, beta: Double 
         val currentTransformetRatio = getNearestCTRatio(currentSummation)
         val currentSetting /* pick-up current */ = currentSummation / currentTransformetRatio.toDouble()
 
-        relays[i].psm = ((globalMaxFaultCurrent / (currentTransformetRatio.toDouble() * currentSetting)).toInt() / 5 * 5).toDouble()
+        relays[i].psm =
+            ((globalMaxFaultCurrent / (currentTransformetRatio.toDouble() * currentSetting)).toInt() / 5 * 5).toDouble()
         relays[i].ct = currentTransformetRatio
         relays[i].tms = relays[i].top * (Math.pow(relays[i].psm, beta) - 1.toDouble()) / alpha
     }
@@ -34,7 +40,13 @@ fun computeRelayParameters(buses: List<Bus>, alpha: Double = 0.14, beta: Double 
 
 fun getNearestCTRatio(current: Double): Int {
     val currentTransformerRatios = listOf(100, 200, 400)
-    return currentTransformerRatios[Math.abs(currentTransformerRatios.binarySearch(current.toInt())) - 2]
+    for (i in 0 until currentTransformerRatios.size) {
+        if (current < currentTransformerRatios[i]) {
+            return if (i != 0) currentTransformerRatios[i - 1] else currentTransformerRatios[0]
+        }
+    }
+
+    return currentTransformerRatios[currentTransformerRatios.size - 1]
 }
 
 fun getTotalFaultCurrentUptoBus(buses: List<Bus>, index: Int): Int {

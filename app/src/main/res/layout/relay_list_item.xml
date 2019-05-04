@@ -1,146 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="4dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/view_background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/delete_background"
-        android:padding="16dp"
+    <TextView
+        android:id="@+id/topTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:textColor="@color/neutral"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toStartOf="@+id/tmsTextView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/deleteImageView"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:contentDescription="@string/delete"
-            android:src="@drawable/delete_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="@string/delete"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/deleteImageView"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/view_foreground"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/plain_background"
-        android:visibility="visible"
+    <TextView
+        android:id="@+id/tmsTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:textColor="@color/neutral"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toStartOf="@+id/psmTextView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/topTextView"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/positionTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:textColor="@color/neutral"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/maxLoadCurrentEditText"
-            app:layout_constraintEnd_toStartOf="@+id/maxLoadCurrentEditText"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/maxLoadCurrentEditText"
-            app:layout_constraintVertical_chainStyle="spread_inside" />
+    <TextView
+        android:id="@+id/psmTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:textColor="@color/neutral"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ctRatioTextView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tmsTextView"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/maxLoadCurrentEditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:gravity="center"
-            android:hint="@string/max_load_current"
-            android:inputType="number"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@id/minFaultCurrentEditText"
-            app:layout_constraintEnd_toStartOf="@+id/upButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_weight="3"
-            app:layout_constraintStart_toEndOf="@+id/positionTextView"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/ctRatioTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:textColor="@color/neutral"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/psmTextView"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/upButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:contentDescription="@string/shift_relay_up"
-            app:layout_constraintBottom_toBottomOf="@+id/maxLoadCurrentEditText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/maxLoadCurrentEditText"
-            app:layout_constraintTop_toTopOf="@+id/maxLoadCurrentEditText"
-            app:srcCompat="@drawable/up_icon" />
-
-        <EditText
-            android:id="@+id/minFaultCurrentEditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:ems="5"
-            android:gravity="center"
-            android:hint="@string/min_fault_current"
-            android:inputType="numberDecimal"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/maxFaultCurrentEditText"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/maxLoadCurrentEditText" />
-
-        <EditText
-            android:id="@+id/maxFaultCurrentEditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:ems="5"
-            android:gravity="center"
-            android:hint="@string/max_fault_current"
-            android:inputType="numberDecimal"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/downButton"
-            app:layout_constraintStart_toEndOf="@+id/minFaultCurrentEditText"
-            app:layout_constraintTop_toBottomOf="@+id/maxLoadCurrentEditText" />
-
-        <ImageButton
-            android:id="@+id/downButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/shift_down_relay"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/upButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/upButton"
-            app:layout_constraintTop_toBottomOf="@+id/maxLoadCurrentEditText"
-            app:srcCompat="@drawable/down_icon" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

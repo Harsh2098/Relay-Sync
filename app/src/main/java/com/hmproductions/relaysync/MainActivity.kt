@@ -1,9 +1,11 @@
 package com.hmproductions.relaysync
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -12,24 +14,25 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.hmproductions.relaysync.data.Bus
 import com.hmproductions.relaysync.data.RelayViewModel
+import com.hmproductions.relaysync.adapter.BusRecyclerAdapter
 import com.hmproductions.relaysync.utils.RelayItemTouchHelper
-import com.hmproductions.relaysync.utils.RelayRecyclerAdapter
+import com.hmproductions.relaysync.adapter.RelayRecyclerAdapter
 import com.hmproductions.relaysync.utils.computeRelayParameters
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 
-class MainActivity : AppCompatActivity(), RelayRecyclerAdapter.RelayClickListener,
+class MainActivity : AppCompatActivity(), BusRecyclerAdapter.RelayClickListener,
     SwipeRefreshLayout.OnRefreshListener, RelayItemTouchHelper.RelayItemTouchHelperListener {
 
     private lateinit var model: RelayViewModel
-    private var relayAdapter: RelayRecyclerAdapter? = null
+    private var busAdapter: BusRecyclerAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         model = ViewModelProviders.of(this).get(RelayViewModel::class.java)
-        relayAdapter = RelayRecyclerAdapter(null, this, this)
+        busAdapter = BusRecyclerAdapter(null, this, this)
 
         setupRecyclerView()
         setupFab()
@@ -39,9 +42,9 @@ class MainActivity : AppCompatActivity(), RelayRecyclerAdapter.RelayClickListene
     }
 
     private fun setupRecyclerView() {
-        with(relaysRecyclerView) {
+        with(busesRecyclerView) {
             layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = relayAdapter
+            adapter = busAdapter
             setHasFixedSize(false)
 
             val itemTouchHelper = ItemTouchHelper(RelayItemTouchHelper(0, ItemTouchHelper.LEFT, this@MainActivity))
@@ -52,28 +55,28 @@ class MainActivity : AppCompatActivity(), RelayRecyclerAdapter.RelayClickListene
     private fun setupFab() {
         addFab.setOnClickListener {
             if (model.busList.size == 0) emptyListLayout.visibility = View.GONE
-            model.busList = relayAdapter?.updatedList as MutableList<Bus>
+            model.busList = busAdapter?.updatedList as MutableList<Bus>
             model.insertBus()
-            relayAdapter?.insertAtLast(model.busList)
+            busAdapter?.insertAtLast(model.busList)
         }
     }
 
     override fun onUpButtonClick(position: Int) {
-        model.busList = relayAdapter?.updatedList as MutableList<Bus>
+        model.busList = busAdapter?.updatedList as MutableList<Bus>
         val moved = model.moveUp(position)
-        if (moved) relayAdapter?.itemsChanged(model.busList, position - 1, 2)
+        if (moved) busAdapter?.itemsChanged(model.busList, position - 1, 2)
     }
 
     override fun onDownButtonClick(position: Int) {
-        model.busList = relayAdapter?.updatedList as MutableList<Bus>
+        model.busList = busAdapter?.updatedList as MutableList<Bus>
         val moved = model.moveDown(position)
-        if (moved) relayAdapter?.itemsChanged(model.busList, position, 2)
+        if (moved) busAdapter?.itemsChanged(model.busList, position, 2)
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int, position: Int) {
         model.deleteBus(position)
         if (model.busList.size == 0) emptyListLayout.visibility = View.VISIBLE
-        relayAdapter?.deleteRelay(model.busList, position)
+        busAdapter?.deleteRelay(model.busList, position)
     }
 
     override fun onRefresh() {
@@ -84,11 +87,20 @@ class MainActivity : AppCompatActivity(), RelayRecyclerAdapter.RelayClickListene
     private fun populateSampleData() {
         emptyListLayout.visibility = View.GONE
         model.insertBus(115, 1500, 6000)
-        relayAdapter?.insertAtLast(model.busList)
+        busAdapter?.insertAtLast(model.busList)
         model.insertBus(80, 1000, 5000)
-        relayAdapter?.insertAtLast(model.busList)
+        busAdapter?.insertAtLast(model.busList)
         model.insertBus(100, 780, 3000)
-        relayAdapter?.insertAtLast(model.busList)
+        busAdapter?.insertAtLast(model.busList)
+    }
+
+    private fun validateBuses(): Boolean {
+        for(bus in model.busList) {
+            if(bus.maxFaultCurrent == -1 || bus.minFaultCurrent == -1 || bus.loadCurrent == -1)
+                return false
+        }
+
+        return true
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -100,8 +112,28 @@ class MainActivity : AppCompatActivity(), RelayRecyclerAdapter.RelayClickListene
 
         when (item?.itemId) {
             R.id.calculate_action -> {
-                model.busList = relayAdapter?.updatedList as MutableList<Bus>
+                model.busList = busAdapter?.updatedList as MutableList<Bus>
+
+                val valid = validateBuses()
+                if(!valid) {
+                    toast("Invalid bus parameters")
+                    return super.onOptionsItemSelected(item)
+                }
+
                 val relays = computeRelayParameters(model.busList)
+
+                val hostRoomView = LayoutInflater.from(this).inflate(R.layout.relay_answer_layout, null)
+
+                with(hostRoomView.findViewById(R.id.relaysRecyclerView) as RecyclerView) {
+                    layoutManager = LinearLayoutManager(this@MainActivity)
+                    adapter = RelayRecyclerAdapter(this@MainActivity, relays)
+                    setHasFixedSize(true)
+                }
+
+                AlertDialog.Builder(this)
+                    .setView(hostRoomView)
+                    .setCancelable(true)
+                    .show()
             }
         }
 

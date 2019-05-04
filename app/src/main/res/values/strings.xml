@@ -9,4 +9,8 @@
     <string name="tap_button_to_add_a_relay">Tap + button to add a relay…</string>
     <string name="empty_list">empty list</string>
     <string name="delete">Delete</string>
+    <string name="ct_ratio">CT Ratio</string>
+    <string name="tms">TMS</string>
+    <string name="psm">PSM</string>
+    <string name="top">Top</string>
 </resources>
