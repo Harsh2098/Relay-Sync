@@ -10,10 +10,11 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.hmproductions.relaysync.data.Relay
+import com.hmproductions.relaysync.data.Bus
 import com.hmproductions.relaysync.data.RelayViewModel
 import com.hmproductions.relaysync.utils.RelayItemTouchHelper
 import com.hmproductions.relaysync.utils.RelayRecyclerAdapter
+import com.hmproductions.relaysync.utils.computeRelayParameters
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 
@@ -33,6 +34,8 @@ class MainActivity : AppCompatActivity(), RelayRecyclerAdapter.RelayClickListene
         setupRecyclerView()
         setupFab()
         relaySwipeRefreshLayout.setOnRefreshListener(this)
+
+        populateSampleData()
     }
 
     private fun setupRecyclerView() {
@@ -48,34 +51,44 @@ class MainActivity : AppCompatActivity(), RelayRecyclerAdapter.RelayClickListene
 
     private fun setupFab() {
         addFab.setOnClickListener {
-            if (model.relaysList.size == 0) emptyListLayout.visibility = View.GONE
-            model.relaysList = relayAdapter?.updatedList as MutableList<Relay>
-            model.insertRelay()
-            relayAdapter?.insertAtLast(model.relaysList)
+            if (model.busList.size == 0) emptyListLayout.visibility = View.GONE
+            model.busList = relayAdapter?.updatedList as MutableList<Bus>
+            model.insertBus()
+            relayAdapter?.insertAtLast(model.busList)
         }
     }
 
     override fun onUpButtonClick(position: Int) {
-        model.relaysList = relayAdapter?.updatedList as MutableList<Relay>
+        model.busList = relayAdapter?.updatedList as MutableList<Bus>
         val moved = model.moveUp(position)
-        if (moved) relayAdapter?.itemsChanged(model.relaysList, position - 1, 2)
+        if (moved) relayAdapter?.itemsChanged(model.busList, position - 1, 2)
     }
 
     override fun onDownButtonClick(position: Int) {
-        model.relaysList = relayAdapter?.updatedList as MutableList<Relay>
+        model.busList = relayAdapter?.updatedList as MutableList<Bus>
         val moved = model.moveDown(position)
-        if (moved) relayAdapter?.itemsChanged(model.relaysList, position, 2)
+        if (moved) relayAdapter?.itemsChanged(model.busList, position, 2)
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int, position: Int) {
-        model.deleteRelay(position)
-        if (model.relaysList.size == 0) emptyListLayout.visibility = View.VISIBLE
-        relayAdapter?.deleteRelay(model.relaysList, position)
+        model.deleteBus(position)
+        if (model.busList.size == 0) emptyListLayout.visibility = View.VISIBLE
+        relayAdapter?.deleteRelay(model.busList, position)
     }
 
     override fun onRefresh() {
         toast("Relays updated")
         relaySwipeRefreshLayout.isRefreshing = false
+    }
+
+    private fun populateSampleData() {
+        emptyListLayout.visibility = View.GONE
+        model.insertBus(115, 1500, 6000)
+        relayAdapter?.insertAtLast(model.busList)
+        model.insertBus(80, 1000, 5000)
+        relayAdapter?.insertAtLast(model.busList)
+        model.insertBus(100, 780, 3000)
+        relayAdapter?.insertAtLast(model.busList)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -87,8 +100,8 @@ class MainActivity : AppCompatActivity(), RelayRecyclerAdapter.RelayClickListene
 
         when (item?.itemId) {
             R.id.calculate_action -> {
-                toast("Todo implement this")
-                // TODO: Calculate using relay list from model
+                model.busList = relayAdapter?.updatedList as MutableList<Bus>
+                val relays = computeRelayParameters(model.busList)
             }
         }
 

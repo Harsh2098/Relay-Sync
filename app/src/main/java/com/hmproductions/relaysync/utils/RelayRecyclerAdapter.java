@@ -13,14 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.hmproductions.relaysync.R;
-import com.hmproductions.relaysync.data.Relay;
+import com.hmproductions.relaysync.data.Bus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RelayRecyclerAdapter extends RecyclerView.Adapter<RelayRecyclerAdapter.RelayViewHolder> {
 
-    private List<Relay> relayList;
+    private List<Bus> busList;
     private Context context;
     private RelayClickListener listener;
 
@@ -30,8 +30,8 @@ public class RelayRecyclerAdapter extends RecyclerView.Adapter<RelayRecyclerAdap
         void onDownButtonClick(int position);
     }
 
-    public RelayRecyclerAdapter(List<Relay> relayList, Context context, RelayClickListener listener) {
-        this.relayList = relayList;
+    public RelayRecyclerAdapter(List<Bus> busList, Context context, RelayClickListener listener) {
+        this.busList = busList;
         this.context = context;
         this.listener = listener;
     }
@@ -44,50 +44,50 @@ public class RelayRecyclerAdapter extends RecyclerView.Adapter<RelayRecyclerAdap
 
     @Override
     public void onBindViewHolder(@NonNull RelayViewHolder holder, int position) {
-        Relay currentRelay = relayList.get(position);
+        Bus currentBus = busList.get(position);
 
-        holder.positionTextView.setText(String.valueOf(currentRelay.getPosition()));
+        holder.positionTextView.setText(String.valueOf(currentBus.getPosition()));
 
-        if (currentRelay.getLoadCurrent() != -1)
-            holder.maxLoadCurrentEdiText.setText(String.valueOf(currentRelay.getLoadCurrent()));
+        if (currentBus.getLoadCurrent() != -1)
+            holder.maxLoadCurrentEdiText.setText(String.valueOf(currentBus.getLoadCurrent()));
         else
             holder.maxLoadCurrentEdiText.setText("");
 
-        if (currentRelay.getMaxFaultCurrent() != -1)
-            holder.maxFaultCurrentEditText.setText(String.valueOf(currentRelay.getMaxFaultCurrent()));
+        if (currentBus.getMaxFaultCurrent() != -1)
+            holder.maxFaultCurrentEditText.setText(String.valueOf(currentBus.getMaxFaultCurrent()));
         else
             holder.maxFaultCurrentEditText.setText("");
 
-        if (currentRelay.getMinFaultCurrent() != -1)
-            holder.minFaultCurrentEditText.setText(String.valueOf(currentRelay.getMinFaultCurrent()));
+        if (currentBus.getMinFaultCurrent() != -1)
+            holder.minFaultCurrentEditText.setText(String.valueOf(currentBus.getMinFaultCurrent()));
         else
             holder.minFaultCurrentEditText.setText("");
     }
 
     @Override
     public int getItemCount() {
-        if (relayList == null) return 0;
-        return relayList.size();
+        if (busList == null) return 0;
+        return busList.size();
     }
 
-    public void itemsChanged(List<Relay> newList, int positionStart, int count) {
-        relayList = newList;
+    public void itemsChanged(List<Bus> newList, int positionStart, int count) {
+        busList = newList;
         notifyItemRangeChanged(positionStart, count);
     }
 
-    public void insertAtLast(List<Relay> newList) {
-        relayList = newList;
+    public void insertAtLast(List<Bus> newList) {
+        busList = newList;
         notifyItemInserted(newList.size() - 1);
     }
 
-    public void deleteRelay(List<Relay> newList, int position) {
-        relayList = newList;
+    public void deleteRelay(List<Bus> newList, int position) {
+        busList = newList;
         notifyItemRemoved(position);
     }
 
-    public List<Relay> getUpdatedList() {
-        if (relayList == null) return new ArrayList<>();
-        return relayList;
+    public List<Bus> getUpdatedList() {
+        if (busList == null) return new ArrayList<>();
+        return busList;
     }
 
     private int getFormattedInteger(String s) {
@@ -128,7 +128,7 @@ public class RelayRecyclerAdapter extends RecyclerView.Adapter<RelayRecyclerAdap
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    relayList.get(getAdapterPosition()).setLoadCurrent(getFormattedInteger(s.toString()));
+                    busList.get(getAdapterPosition()).setLoadCurrent(getFormattedInteger(s.toString()));
                 }
             });
 
@@ -145,7 +145,7 @@ public class RelayRecyclerAdapter extends RecyclerView.Adapter<RelayRecyclerAdap
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    relayList.get(getAdapterPosition()).setMinFaultCurrent(getFormattedInteger(s.toString()));
+                    busList.get(getAdapterPosition()).setMinFaultCurrent(getFormattedInteger(s.toString()));
                 }
             });
 
@@ -162,7 +162,7 @@ public class RelayRecyclerAdapter extends RecyclerView.Adapter<RelayRecyclerAdap
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    relayList.get(getAdapterPosition()).setMaxFaultCurrent(getFormattedInteger(s.toString()));
+                    busList.get(getAdapterPosition()).setMaxFaultCurrent(getFormattedInteger(s.toString()));
                 }
             });
 

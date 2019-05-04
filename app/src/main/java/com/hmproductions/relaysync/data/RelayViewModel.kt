@@ -4,10 +4,10 @@ import androidx.lifecycle.ViewModel
 
 class RelayViewModel : ViewModel() {
 
-    var relaysList = mutableListOf<Relay>()
+    var busList = mutableListOf<Bus>()
 
-    fun insertRelay() {
-        relaysList.add(Relay(relaysList.size + 1, -1, -1, -1))
+    fun insertBus(loadCurrent: Int = -1, minFaultCurrent: Int = -1, maxFaultCurrent: Int = -1) {
+        busList.add(Bus(busList.size + 1, loadCurrent, minFaultCurrent, maxFaultCurrent))
     }
 
     fun moveUp(position: Int): Boolean {
@@ -17,21 +17,21 @@ class RelayViewModel : ViewModel() {
     }
 
     fun moveDown(position: Int): Boolean {
-        if (position >= relaysList.size - 1) return false
+        if (position >= busList.size - 1) return false
         swapPositions(position)
         return true
     }
 
-    fun deleteRelay(position: Int) {
-        relaysList.removeAt(position)
+    fun deleteBus(position: Int) {
+        busList.removeAt(position)
     }
 
     private fun swapPositions(position: Int) {
-        val tempRelay = relaysList[position]
-        relaysList[position] = relaysList[position + 1]
-        relaysList[position + 1] = tempRelay
+        val tempRelay = busList[position]
+        busList[position] = busList[position + 1]
+        busList[position + 1] = tempRelay
 
-        relaysList[position].position = position + 1
-        relaysList[position + 1].position = position + 2
+        busList[position].position = position + 1
+        busList[position + 1].position = position + 2
     }
 }
