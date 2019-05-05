@@ -13,4 +13,9 @@
     <string name="tms">TMS</string>
     <string name="psm">PSM</string>
     <string name="top">Top</string>
+    <string name="voltage_rating_v">Voltage Rating (V)</string>
+    <string name="power_rating_mva">Power Rating (MVA)</string>
+    <string name="earthing_resistance_ohm">Earthing Resistance (ohm)</string>
+    <string name="percentage_protection">Percentage Protection (%)</string>
+    <string name="current_setting">Current Setting (%)</string>
 </resources>

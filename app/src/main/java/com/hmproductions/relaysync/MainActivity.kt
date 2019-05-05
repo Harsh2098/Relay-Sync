@@ -8,9 +8,9 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import com.hmproductions.relaysync.adapter.ContentAdapter
 import com.hmproductions.relaysync.data.RelayViewModel
+import com.hmproductions.relaysync.fragments.AlternatorFragment
 import com.hmproductions.relaysync.fragments.RelayFragment
 import kotlinx.android.synthetic.main.activity_main.*
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
                 )
                 when (contentViewPager.currentItem) {
                     0 -> (page as RelayFragment).calculateRelayParameters()
+                    1 -> (page as AlternatorFragment).calculateAlternatorProtection()
                 }
             }
         }

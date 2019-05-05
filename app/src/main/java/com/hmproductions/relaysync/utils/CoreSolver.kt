@@ -38,6 +38,27 @@ fun computeRelayParameters(
     return relays
 }
 
+fun computeEarthingResistance(
+    powerRating: Double,
+    voltage: Double,
+    percentProtection: Int,
+    currentSetting: Double
+): Double {
+    val voltagePerPhase = voltage / Math.pow(3.0, 0.5) * (1 - percentProtection.toDouble() / 100.0)
+    val current = powerRating * Math.pow(10.0, 6.0) * currentSetting / (Math.pow(3.0, 0.5) * voltage)
+    return voltagePerPhase / current
+}
+
+fun computePercentageProtection(
+    powerRating: Double,
+    voltage: Double,
+    earthingResistance: Double,
+    currentSetting: Double
+): Int {
+    val current = powerRating * Math.pow(10.0, 6.0) * currentSetting / (Math.pow(3.0, 0.5) * voltage)
+    return 100 - (current * earthingResistance * 100.0 * Math.pow(3.0, 0.5) / voltage).toInt()
+}
+
 fun getNearestCTRatio(current: Double): Int {
     val currentTransformerRatios = listOf(100, 200, 400)
     for (i in 0 until currentTransformerRatios.size) {
