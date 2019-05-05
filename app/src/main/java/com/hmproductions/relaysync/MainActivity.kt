@@ -10,7 +10,9 @@ import com.hmproductions.relaysync.adapter.ContentAdapter
 import com.hmproductions.relaysync.data.RelayViewModel
 import com.hmproductions.relaysync.fragments.AlternatorFragment
 import com.hmproductions.relaysync.fragments.RelayFragment
+import com.hmproductions.relaysync.utils.hideKeyboard
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.contentView
 
 class MainActivity : AppCompatActivity() {
 
@@ -47,6 +49,9 @@ class MainActivity : AppCompatActivity() {
                     "android:switcher:" + R.id.contentViewPager + ":" +
                             contentViewPager.currentItem
                 )
+
+                contentView?.hideKeyboard()
+
                 when (contentViewPager.currentItem) {
                     0 -> (page as RelayFragment).calculateRelayParameters()
                     1 -> (page as AlternatorFragment).calculateAlternatorProtection()
