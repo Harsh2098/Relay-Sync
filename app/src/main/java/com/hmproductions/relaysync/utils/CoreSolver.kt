@@ -41,24 +41,27 @@ fun computeRelayParameters(
     return relays
 }
 
-fun computeRelayType(k1: Int, k2: Int, k3: Int): String {
-    if (k1 == 0)
-        return "Under Current Relay"
+enum class Values {NEGATIVE, ZERO, POSITIVE}
 
-    if (k1 == 2 && k2 == 1 && k3 == 1)
-        return "Over Current Relay"
+fun computeRelayType(k1: Int, k2: Int, k3: Int): String { // 0 - Negative || 1 - Zero || 2 - Positive
 
-    if (k1 == 2 && k2 == 0 && k3 == 1)
-        return "Impedance Relay"
+    if (k1 == Values.NEGATIVE.ordinal)
+        return "Not possible"
 
-    if (k1 == 1 && k2 == 2)
-        return "Over Voltage Relay"
+    if (k1 == Values.POSITIVE.ordinal && k2 == Values.ZERO.ordinal && k3 == Values.ZERO.ordinal)
+        return "Over Current Relay 50/51"
 
-    if (k1 == 2 && k2 == 1 && k3 == 0)
-        return "Power restrained"
+    if (k1 == Values.POSITIVE.ordinal && k2 == Values.NEGATIVE.ordinal && k3 == Values.ZERO.ordinal)
+        return "Impedance Relay 21"
 
-    if (k1 == 1 && k2 == 0 && k3 == 2)
-        return "Mho relay"
+    if (k1 == Values.ZERO.ordinal && k2 == Values.POSITIVE.ordinal)
+        return "Over Voltage Relay 59"
+
+    if (k1 == Values.POSITIVE.ordinal && k2 == Values.ZERO.ordinal && k3 == Values.NEGATIVE.ordinal)
+        return "Reactance Relay (Power Restrained)"
+
+    if (k1 == Values.ZERO.ordinal && k2 == Values.NEGATIVE.ordinal && k3 == Values.POSITIVE.ordinal)
+        return "Mho relay (Voltage Constrained Directional OCR)"
 
     return "Unclassified Relay"
 }

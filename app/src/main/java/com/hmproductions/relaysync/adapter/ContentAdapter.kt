@@ -20,7 +20,7 @@ class ContentAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fr
     override fun getPageTitle(position: Int): CharSequence? {
 
         return when (position) {
-            0 -> "Relay Compute"
+            0 -> "IDMT Protection"
             else -> "Alternator"
         }
     }
