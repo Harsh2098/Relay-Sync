@@ -88,6 +88,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/currentSettingTIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,5 +106,102 @@
             android:textSize="16sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/neutral"
+        app:layout_constraintTop_toBottomOf="@id/currentSettingTIL" />
+
+    <TextView
+        android:id="@+id/k1TextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="@string/k1"
+        android:textColor="@color/neutral"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/k2TextView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentSettingTIL" />
+
+    <TextView
+        android:id="@+id/k2TextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="@string/k2"
+        android:textColor="@color/neutral"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/k3TextView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/k1TextView"
+        app:layout_constraintTop_toBottomOf="@+id/currentSettingTIL" />
+
+    <TextView
+        android:id="@+id/k3TextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="@string/k3"
+        android:textColor="@color/neutral"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/k2TextView"
+        app:layout_constraintTop_toBottomOf="@+id/currentSettingTIL" />
+
+    <NumberPicker
+        android:id="@+id/k1Picker"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/k2Picker"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/k1TextView" />
+
+    <NumberPicker
+        android:id="@+id/k2Picker"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/k3Picker"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/k1Picker"
+        app:layout_constraintTop_toBottomOf="@+id/k2TextView" />
+
+    <NumberPicker
+        android:id="@+id/k3Picker"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/k2Picker"
+        app:layout_constraintTop_toBottomOf="@+id/k3TextView" />
+
+    <TextView
+        android:id="@+id/relayTypeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/neutral"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/k2Picker" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,4 +18,14 @@
     <string name="earthing_resistance_ohm">Earthing Resistance (ohm)</string>
     <string name="percentage_protection">Percentage Protection (%)</string>
     <string name="current_setting">Current Setting (%)</string>
+    <string name="k3">k3</string>
+    <string name="k2">k2</string>
+    <string name="k1">k1</string>
+
+    <string-array name="magnitudes">
+        <item>-ve</item>
+        <item>0</item>
+        <item>+ve</item>
+    </string-array>
+
 </resources>

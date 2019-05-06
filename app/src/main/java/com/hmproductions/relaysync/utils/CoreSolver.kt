@@ -41,6 +41,28 @@ fun computeRelayParameters(
     return relays
 }
 
+fun computeRelayType(k1: Int, k2: Int, k3: Int): String {
+    if (k1 == 0)
+        return "Under Current Relay"
+
+    if (k1 == 2 && k2 == 1 && k3 == 1)
+        return "Over Current Relay"
+
+    if (k1 == 2 && k2 == 0 && k3 == 1)
+        return "Impedance Relay"
+
+    if (k1 == 1 && k2 == 2)
+        return "Over Voltage Relay"
+
+    if (k1 == 2 && k2 == 1 && k3 == 0)
+        return "Power restrained"
+
+    if (k1 == 1 && k2 == 0 && k3 == 2)
+        return "Mho relay"
+
+    return "Unclassified Relay"
+}
+
 fun computeEarthingResistance(
     powerRating: Double,
     voltage: Double,
