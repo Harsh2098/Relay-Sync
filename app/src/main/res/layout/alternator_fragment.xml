@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="16dp"
+    android:background="@color/white"
     android:padding="4dp">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -63,7 +64,7 @@
             android:gravity="center"
             android:hint="@string/earthing_resistance_ohm"
             android:textColor="@color/neutral"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -118,8 +119,7 @@
         android:id="@+id/k1TextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="36dp"
         android:gravity="center"
         android:text="@string/k1"
         android:textColor="@color/neutral"
@@ -133,7 +133,7 @@
         android:id="@+id/k2TextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="36dp"
         android:gravity="center"
         android:text="@string/k2"
         android:textColor="@color/neutral"
@@ -147,8 +147,7 @@
         android:id="@+id/k3TextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="36dp"
         android:gravity="center"
         android:text="@string/k3"
         android:textColor="@color/neutral"
@@ -175,6 +174,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toStartOf="@+id/k3Picker"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@id/k1Picker"
@@ -184,7 +184,6 @@
         android:id="@+id/k3Picker"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -198,6 +197,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:textAllCaps="true"
         android:textColor="@color/neutral"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
