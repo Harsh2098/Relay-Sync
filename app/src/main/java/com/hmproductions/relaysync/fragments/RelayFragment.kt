@@ -44,8 +44,6 @@ class RelayFragment : Fragment(), BusRecyclerAdapter.RelayClickListener,
         setupRecyclerView()
         setupFab()
         relaySwipeRefreshLayout.setOnRefreshListener(this)
-
-        populateSampleData()
     }
 
 
@@ -88,7 +86,8 @@ class RelayFragment : Fragment(), BusRecyclerAdapter.RelayClickListener,
     }
 
     override fun onRefresh() {
-        context?.toast("Relays updated")
+        context?.toast("Sample buses added")
+        populateSampleData()
         relaySwipeRefreshLayout.isRefreshing = false
     }
 

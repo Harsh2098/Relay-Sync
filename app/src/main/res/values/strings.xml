@@ -6,7 +6,7 @@
     <string name="shift_down_relay">Shift down relay</string>
     <string name="max_load_current">Max load current</string>
     <string name="calculate">Calculate</string>
-    <string name="tap_button_to_add_a_relay">Tap + button to add a relay…</string>
+    <string name="tap_button_to_add_a_bus">Tap + button to add a bus…</string>
     <string name="empty_list">empty list</string>
     <string name="delete">Delete</string>
     <string name="ct_ratio">CT Ratio</string>
